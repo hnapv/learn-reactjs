@@ -1,0 +1,15 @@
+
+function Content() {
+    const [countdown, setCountdown] = useState(180)
+    const timeId = useEffect(() => {
+        setInterval(() => {
+            setCountdown(prev => prev - 1)
+        }, 1000)
+        return clearInterval(timeId)
+    },[])
+    return (
+        <div>
+            {countdown}
+        </div>
+    )
+}

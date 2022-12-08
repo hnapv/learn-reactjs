@@ -1,0 +1,34 @@
+function App() {
+const getStorage =() => {
+  const storageJobs = JSON.parse(localStorage.getItem('jobs'))
+  if (storageJobs == null)
+    return []
+  else
+  console.log(storageJobs)
+    return storageJobs
+}
+  const [job, setJob] = useState('')
+  const [jobs, setJobs] = useState(getStorage)
+  const handleSubmit = () => {
+    setJobs(prev => {
+      const newJobs = [...prev, job]
+      const jsonJobs = JSON.stringify(newJobs)
+      localStorage.setItem('jobs', jsonJobs)
+      return newJobs
+    })
+    setJob('')
+  }
+
+  return (
+    <div className="App" style={{ padding: 20 }}>
+      <input value={job} onChange={e => setJob(e.target.value)} />
+      <ul>
+        {jobs.map((job, index) => (
+          <li key={index}>{job}</li>
+        )
+        )}
+      </ul>
+      <button onClick={handleSubmit}>Add</button>
+    </div>
+  );
+}
